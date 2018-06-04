@@ -45,9 +45,9 @@ cache:
 # For example, you put your favicons into `hexo-site/source/images` directory.
 # Then need to rename & redefine they on any other names, otherwise icons from Next will rewrite your custom icons in Hexo.
 favicon:
-  small: /images/favicon-16x16-next.png
-  medium: /images/favicon-32x32-next.png
-  apple_touch_icon: /images/apple-touch-icon-next.png
+  small: /images/favicon-16x16.png
+  medium: /images/favicon-32x32.png
+  apple_touch_icon: /images/apple-touch-icon.png
   safari_pinned_tab: /images/logo.svg
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
@@ -66,29 +66,29 @@ footer:
   icon:
     # Icon name in fontawesome, see: https://fontawesome.com/v4.7.0/icons
     # `heart` is recommended with animation in red (#ff0000).
-    name: user
+    name: heart
     # If you want to animate the icon, set it to true.
-    animated: false
+    animated: true
     # Change the color of icon, using Hex Code.
-    color: "#808080"
+    color: "#754928"
 
   # If not defined, will be used `author` from Hexo main config.
-  copyright:
+  copyright: "Builded by Donlin."
   # -------------------------------------------------------------
   powered:
     # Hexo link (Powered by Hexo).
-    enable: true
+    enable: false
     # Version info of Hexo after Hexo link (vX.X.X).
-    version: true
+    version: false
 
   theme:
     # Theme & scheme info link (Theme - NexT.scheme).
-    enable: true
+    enable: false
     # Version info of NexT after scheme info (vX.X.X).
-    version: true
+    version: false
   # -------------------------------------------------------------
   # Any custom text can be defined here.
-  #custom_text: Hosted by <a target="_blank" rel="external nofollow" href="https://pages.coding.me"><b>Coding Pages</b></a>
+  custom_text: Hosted by <a target="_blank" rel="external nofollow" href="https://pages.github.com/"><b>Github Pages</b></a>
 
 # ---------------------------------------------------------------
 # SEO Settings
@@ -118,13 +118,13 @@ index_with_subtitle: false
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
 menu:
   home: / || home
-  #about: /about/ || user
-  #tags: /tags/ || tags
-  #categories: /categories/ || th
-  archives: /archives/ || archive
+  about: /about || user
+  tags: /tags || tags
+  categories: /categories || th
+  archives: /archives || archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
-  #commonweal: /404/ || heartbeat
+  #commonweal: /404.html || heartbeat
 
 # Enable/Disable menu icons / item badges.
 menu_settings:
@@ -136,9 +136,9 @@ menu_settings:
 # ---------------------------------------------------------------
 
 # Schemes
-scheme: Muse
+#scheme: Muse
 #scheme: Mist
-#scheme: Pisces
+scheme: Pisces
 #scheme: Gemini
 
 
@@ -154,9 +154,11 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
-#social:
-  #GitHub: https://github.com/yourname || github
-  #E-Mail: mailto:yourname@gmail.com || envelope
+social:
+  GitHub: https://github.com/Donlin23 || github
+  E-Mail: mailto:donlinhe@foxmail.com || envelope
+  微博: https://weibo.com/23dongdong || weibo
+  掘金: https://juejin.im/user/59fd2acc6fb9a04514636713
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
   #FB Page: https://www.facebook.com/yourname || facebook
@@ -184,18 +186,19 @@ social_icons:
 # Blog rolls
 links_icon: link
 links_title: Links
-links_layout: block
-#links_layout: inline
-#links:
-  #Title: http://example.com/
+#links_layout: block
+links_layout: inline
+links:
+  darcy he : http://frobisher.me
+  Wei'Ocean : http://xawei.me
 
 # Sidebar Avatar
 avatar:
   # in theme directory(source/images): /images/avatar.gif
   # in site  directory(source/uploads): /uploads/avatar.gif
   # You can also use other linking images.
-  url: #/images/avatar.gif
-  # If true, the avatar would be dispalyed in circle. 
+  url: /images/profile.jpg
+  # If true, the avatar would be dispalyed in circle.
   rounded: false
   # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
   opacity: 1
@@ -234,7 +237,7 @@ sidebar:
   #display: remove
 
   # Sidebar offset from top menubar in pixels (only for Pisces | Gemini).
-  offset: 12
+  offset: 6
 
   # Back to top in sidebar (only for Pisces | Gemini).
   b2t: false
@@ -262,7 +265,7 @@ excerpt_description: true
 # Automatically Excerpt. Not recommend.
 # Please use <!-- more --> in the post to control excerpt accurately.
 auto_excerpt:
-  enable: false
+  enable: true
   length: 150
 
 # Post meta display settings
@@ -356,7 +359,7 @@ custom_logo:
 # Code Highlight theme
 # Available values: normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night eighties
 
 # Enable "cheers" for archive page.
 cheers_enabled: true
@@ -384,7 +387,7 @@ sidebar_width:
 # Arial | Tahoma | Helvetica | Times New Roman | Courier New | Verdana | Georgia | Palatino | Garamond | Comic Sans MS | Trebuchet MS
 # ---------------------------------------------------------------
 font:
-  enable: false
+  enable: true
 
   # Uri of fonts host. E.g. //fonts.googleapis.com (Default).
   host:
@@ -417,13 +420,13 @@ font:
   # Fallback to `global` font settings.
   logo:
     external: true
-    family:
-    size:
+    family: Pacifico
+    size: 24
 
   # Font settings for <code> and code blocks.
   codes:
     external: true
-    family:
+    family: PT Mono
     size:
 
 

@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Pacifico:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":6,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="IP网络协议详解 IP协议(Internet Protocol)，计算机网络中最核心的一个协议，工作在网络体系结构中的网络层，下面写下这篇文章总结一下IP协议的各个方面的知识点。  首先，我们来了解一下IP协议提供的服务。IP协议位于网络层，是TCP/IP协议族中最为核心的协议，所有的TCP、UDP、ICMP以及IGMP数据都是以IP数据报(IP Datagram)格式进行传输。IP协议提供的是不">
+<meta name="keywords" content="网络协议">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈IP网络协议">
+<meta property="og:url" content="http://donlin23.github.io/2018/06/04/浅谈IP网络协议/index.html">
+<meta property="og:site_name" content="Donlin&#39; Life">
+<meta property="og:description" content="IP网络协议详解 IP协议(Internet Protocol)，计算机网络中最核心的一个协议，工作在网络体系结构中的网络层，下面写下这篇文章总结一下IP协议的各个方面的知识点。  首先，我们来了解一下IP协议提供的服务。IP协议位于网络层，是TCP/IP协议族中最为核心的协议，所有的TCP、UDP、ICMP以及IGMP数据都是以IP数据报(IP Datagram)格式进行传输。IP协议提供的是不">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img3.ph.126.net/vBeH9eDewhj4Kx24a1m0dA==/2791950294010152753.jpg">
+<meta property="og:updated_time" content="2018-06-29T07:22:23.972Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈IP网络协议">
+<meta name="twitter:description" content="IP网络协议详解 IP协议(Internet Protocol)，计算机网络中最核心的一个协议，工作在网络体系结构中的网络层，下面写下这篇文章总结一下IP协议的各个方面的知识点。  首先，我们来了解一下IP协议提供的服务。IP协议位于网络层，是TCP/IP协议族中最为核心的协议，所有的TCP、UDP、ICMP以及IGMP数据都是以IP数据报(IP Datagram)格式进行传输。IP协议提供的是不">
+<meta name="twitter:image" content="http://img3.ph.126.net/vBeH9eDewhj4Kx24a1m0dA==/2791950294010152753.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://donlin23.github.io/2018/06/04/浅谈IP网络协议/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>浅谈IP网络协议 | Donlin' Life</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Donlin' Life</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">You must be a hero for your life.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://donlin23.github.io/2018/06/04/浅谈IP网络协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Donlin">
+      <meta itemprop="description" content="笃定 自律 求知">
+      <meta itemprop="image" content="/images/profile.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Donlin' Life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅谈IP网络协议
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-04 10:55:58" itemprop="dateCreated datePublished" datetime="2018-06-04T10:55:58+08:00">2018-06-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-06-29 15:22:23" itemprop="dateModified" datetime="2018-06-29T15:22:23+08:00">2018-06-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/信息安全/" itemprop="url" rel="index"><span itemprop="name">信息安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="IP网络协议详解"><a href="#IP网络协议详解" class="headerlink" title="IP网络协议详解"></a>IP网络协议详解</h3><blockquote>
+<p>IP协议(Internet Protocol)，计算机网络中最核心的一个协议，工作在网络体系结构中的网络层，下面写下这篇文章总结一下IP协议的各个方面的知识点。</p>
+</blockquote>
+<p>首先，我们来了解一下IP协议提供的服务。IP协议位于网络层，是TCP/IP协议族中最为核心的协议，所有的TCP、UDP、ICMP以及IGMP数据都是以IP数据报(IP Datagram)格式进行传输。IP协议提供的是不可靠、无连接的数据报传输服务。</p>
+<ul>
+<li>不可靠(unreliable)：IP协议不能保证数据报能成功地到达目的地，它仅提供传输服务。当发生某种错误是，IP协议会丢弃该数据报。传输的可靠性全由上层协议来提供。</li>
+<li>无连接(connetionless)：IP协议对每个数据报的处理是相互独立的。这也说明，IP数据报可以不按发送顺序接收。如果发送方向接收方发送了两个连续的数据报(先是A，后是B)，每个数据报可以选择不同的路线，因此B可能在A到达之前先到达。</li>
+</ul>
+<p>接下来，我们看一下IP数据报的格式。</p>
+<p><img src="http://img3.ph.126.net/vBeH9eDewhj4Kx24a1m0dA==/2791950294010152753.jpg" alt="IP_Datagram"></p>
+<ol>
+<li>版本。4位，用于标明IP版本号，0100表示IPv4，0110表示IPv6,。</li>
+<li>首部长度。4位，用于表示IP报头的长度，如果有可选字段，也包括可选字段。</li>
+<li>服务类型。8位，表示该报文需要的服务类型。前三位表示优先级，D位表示时延(0普通，1最小)，T位表示吞吐量(0普通，1最大)，R位表示可靠性(0普通，1最大)，C位表示花费(0普通，1最小)。最后一位未用。</li>
+<li>总长度。16位，表示报头长度加上数据部分的长度。最长可达65535字节。</li>
+<li>标识。16位，IP软件在存储器中维持一个计数器，每产生一个数据报，计数器就加1，并将此值赋给标识字段。但这个“标识”并不是序号，因为IP是无连接服务，数据报不存在按序接收的问题。当数据报由于长度超过网络的MTU而必须分片时，这个标识字段的值就被复制到所有的数据报的标识字段中。相同的标识字段的值使分片后的各数据报片最后能正确地重装成为原来的数据报。</li>
+<li>标志。3位，标志字段中的最低位记为MF(More Fragment)。MF=1即表示后面“还有分片”的数据报。MF=0表示这已是若干数据报片中的最后一个。标志字段中间的一位记为DF(Don’t Fragment)，意思是“不能分片”。只有当DF=0时才允许分片。另一位无意义。</li>
+<li>片偏移。13位，片偏移指出：较长的分组在分片后，某片在原分组中的相对位置。也就是说，相对用户数据字段的起点，该片从何处开始。片偏移以8Byte为偏移单位。这就是说，除了最后一个分片，每个分片的长度一定是8B(字节)的整数倍。下面给出一个计算分片偏移的Example：</li>
+</ol>
+<blockquote>
+<p>一个长4000B的IP数据报，数据部分3980B,到达了一个路由，需要转发到一个MTU为1500B的链路上，这样就得分片了。分片数目是3片。每个片都是一个数据报。假设标识是777，那么数据报分片结果是： \<br>分片一：标识：777，MF=1，DF=0,片偏移=0，有效数据：1480B(编号0~1479) \<br>分片二：标识：777，MF=1,DF=0,片偏移=185，185*8=1480，有效数据：1480B(编号1480~2959) \<br>分片三：标识：777，MF=0,DF=0,片偏移370，370*8=2960，有效数据：1020B(编号2960~3979)</p>
+</blockquote>
+<ol start="8">
+<li>生存时间(TTL)。8位，用于设置数据报可以经过的最多的路由器个数。TTL 的初始值由源主机设置（通常为 32 或 64），每经过一个处理它的路由器，TTL 值减 1。如果一个数据报的 TTL 值被减至 0，它将被丢弃。</li>
+<li>协议。8位，用来标识是哪个协议向 IP 传送数据。ICMP 为 1，IGMP 为 2，TCP 为 6，UDP 为 17，GRE 为 47，ESP 为 50。</li>
+<li>首部校验和。16位，根据IP报头计算的校验和码。下面给出一个计算校验和码的Example：</li>
+</ol>
+<blockquote>
+<p>IP头:\<br>45 00 00 31 \<br>89 F5 00 00\<br>6E 06 00 00 (校验字段)\<br>DE B7 45 5D  –&gt; 222.183.69.93\<br>C0 A8 00 DC  –&gt; 192.168.0.220\<br>计算：\<br>4500 + 0031 + 89F5 + 0000 + 6e06+ 0000 + DEB7 + 455D + C0A8 + 00DC =3 22C4\<br>0003 + 22C4 = 22C7\<br>~22C7 = DD38  –&gt; 即为应填充的校验和\<br>当接受到IP数据包时，要检查IP头是否正确，则对IP头进行检验，方法同上：\<br>计算：\<br>4500 + 0031 +89F5 + 0000 + 6E06+ DD38 + DEB7 + 455D + C0A8 + 00DC =3 FFFC \<br>0003 + FFFC = FFFF 得到的结果是全一，正确。</p>
+</blockquote>
+<p>下面，我们来总结一下IP协议的路由选择过程。当一个路由器接收到一个IP数据报后会进行以下路由选择：</p>
+<ol>
+<li>搜索路由表，如果能找到和目的IP地址完全一致的主机，则将IP数据报转发给该主机；</li>
+<li>搜索路由表，如果匹配主机失败，则匹配同一子网的路由器(这需要子网掩码的协助)。如果找到路由器，则将IP数据报发给该路由器；</li>
+<li>搜索路由表，如果匹配同一子网路由器失败，则匹配同网络号路由器，如果找到路由器，则将IP数据报发给该路由器；</li>
+<li>如果以上都失败，就搜索默认路由，转发给默认路由；</li>
+<li>以上都失败，就丢弃这个数据报；</li>
+<li>如果在转发的过程中，IP数据报的TTL生命周期已经被减为0，则该数据报就被抛弃。</li>
+</ol>
+<p>参考资料：<br><br><a href="https://www.shiyanlou.com/courses/98/labs/474/document" target="_blank" rel="noopener">实验楼实验-TCP/IP网络协议基础 IP</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络协议/" rel="tag"># 网络协议</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/04/JPBC学习笔记/" rel="next" title="JPBC学习笔记">
+                <i class="fa fa-chevron-left"></i> JPBC学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/04/浅谈TCP-UDP协议/" rel="prev" title="浅谈TCP&UDP协议">
+                浅谈TCP&UDP协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/profile.jpg"
+                alt="Donlin" />
+            
+              <p class="site-author-name" itemprop="name">Donlin</p>
+              <p class="site-description motion-element" itemprop="description">笃定 自律 求知</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Donlin23" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:donlinhe@foxmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/23dongdong" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/user/59fd2acc6fb9a04514636713" target="_blank" title="掘金"><i class="fa fa-fw fa-globe"></i>掘金</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP网络协议详解"><span class="nav-number">1.</span> <span class="nav-text">IP网络协议详解</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Builded by Donlin.</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Hosted by <a target="_blank" rel="external nofollow" href="https://pages.github.com/"><b>Github Pages</b></a></div>
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

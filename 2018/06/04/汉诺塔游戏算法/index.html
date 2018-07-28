@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Pacifico:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":6,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="汉诺塔是一个非常经典的数学问题，最早发明这个问题的人是法国数学家爱德华·卢卡斯。问题的描述这样子的：有三根杆子A、B、C。A 杆上有 N 个（N &amp;gt; 1）穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有的圆盘移至 C 杆：  每次只能移动一个圆盘； 大盘不能叠在小盘上面。  问：如何移动圆盘？  这个数学问题在计算机编程中非常好地成为了递归思想教学过程中的一个示例。从递归算法的角度出">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汉诺塔游戏算法">
+<meta property="og:url" content="http://donlin23.github.io/2018/06/04/汉诺塔游戏算法/index.html">
+<meta property="og:site_name" content="Donlin&#39; Life">
+<meta property="og:description" content="汉诺塔是一个非常经典的数学问题，最早发明这个问题的人是法国数学家爱德华·卢卡斯。问题的描述这样子的：有三根杆子A、B、C。A 杆上有 N 个（N &amp;gt; 1）穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有的圆盘移至 C 杆：  每次只能移动一个圆盘； 大盘不能叠在小盘上面。  问：如何移动圆盘？  这个数学问题在计算机编程中非常好地成为了递归思想教学过程中的一个示例。从递归算法的角度出">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20160107212231151">
+<meta property="og:updated_time" content="2018-06-29T07:22:23.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汉诺塔游戏算法">
+<meta name="twitter:description" content="汉诺塔是一个非常经典的数学问题，最早发明这个问题的人是法国数学家爱德华·卢卡斯。问题的描述这样子的：有三根杆子A、B、C。A 杆上有 N 个（N &amp;gt; 1）穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有的圆盘移至 C 杆：  每次只能移动一个圆盘； 大盘不能叠在小盘上面。  问：如何移动圆盘？  这个数学问题在计算机编程中非常好地成为了递归思想教学过程中的一个示例。从递归算法的角度出">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160107212231151">
+
+
+
+
+
+
+  <link rel="canonical" href="http://donlin23.github.io/2018/06/04/汉诺塔游戏算法/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>汉诺塔游戏算法 | Donlin' Life</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Donlin' Life</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">You must be a hero for your life.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://donlin23.github.io/2018/06/04/汉诺塔游戏算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Donlin">
+      <meta itemprop="description" content="笃定 自律 求知">
+      <meta itemprop="image" content="/images/profile.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Donlin' Life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">汉诺塔游戏算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-04 10:58:37" itemprop="dateCreated datePublished" datetime="2018-06-04T10:58:37+08:00">2018-06-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-06-29 15:22:23" itemprop="dateModified" datetime="2018-06-29T15:22:23+08:00">2018-06-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>汉诺塔是一个非常经典的数学问题，最早发明这个问题的人是法国数学家爱德华·卢卡斯。问题的描述这样子的：<br><br>有三根杆子A、B、C。A 杆上有 N 个（N &gt; 1）穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有的圆盘移至 C 杆：</p>
+<ol>
+<li>每次只能移动一个圆盘；</li>
+<li>大盘不能叠在小盘上面。</li>
+</ol>
+<p>问：如何移动圆盘？</p>
+<p><img src="http://img.blog.csdn.net/20160107212231151" alt="hanoi"></p>
+<p>这个数学问题在计算机编程中非常好地成为了递归思想教学过程中的一个示例。从递归算法的角度出发，要实现一个递归算法，首先要完成两个条件：一是递归的终止条件；二是递归的推导公式。那么下面我们来看汉诺塔问题的规律。</p>
+<ul>
+<li>当 N = 1 时，移动的顺序为<ol>
+<li><strong>A -&gt; C</strong></li>
+</ol>
+</li>
+<li>当 N = 2 时，移动的顺序为<ol>
+<li>A -&gt; B</li>
+<li><strong>A -&gt; C</strong></li>
+<li>B -&gt; C</li>
+</ol>
+</li>
+<li>当 N = 3 时，移动的顺序为<ol>
+<li>A -&gt; C</li>
+<li>A -&gt; B</li>
+<li>C -&gt; B</li>
+<li><strong>A -&gt; C</strong></li>
+<li>B -&gt; A</li>
+<li>B -&gt; C</li>
+<li>A -&gt; C</li>
+</ol>
+</li>
+</ul>
+<p>仔细一观察，就可以发现一个规律：</p>
+<ol>
+<li>每次的最大一个圆盘肯定是 <strong>A -&gt; C</strong></li>
+<li><p>以加粗的这个 <strong>A -&gt; C</strong> 为分界线，上半部分是将 N-1 个圆盘从 A 移动到 B ，而下半部分则是将 N-1 个圆盘从 B 移动到 C。这样一来就构造一个函数表示这个过程：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#上半部分：N-1个圆盘，以 C 为临时存放，从 A-&gt;B</span><br><span class="line">move(N-1,A,C,B)</span><br><span class="line"></span><br><span class="line">#下半部分：N-1个圆盘，以 A 为临时存放，从 B-&gt;C</span><br><span class="line">move(N-1,B,A,C)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这样一来，就可以得出一个递归的推导规律。最后，我们再来寻找递归的终止条件：将每次的最大一个圆盘从 A-&gt;C :</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#将最大的一个圆盘从 A-&gt;C</span><br><span class="line">move(1,A,B,C)</span><br></pre></td></tr></table></figure>
+<p>最后附上完整的Python代码实现：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!-*- coding:utf-8 -*-</span><br><span class="line">#hanoi游戏</span><br><span class="line"></span><br><span class="line">def move(N,A,B,C):</span><br><span class="line">  if N == 1:</span><br><span class="line">    print(A + &apos;-&gt;&apos; + C)</span><br><span class="line">    return</span><br><span class="line">  #上半部分：N-1个圆盘，以 C 为临时存放，从 A-&gt;B</span><br><span class="line">  move(N-1,A,C,B)</span><br><span class="line">  #将最大的一个圆盘从 A-&gt;C</span><br><span class="line">  move(1,A,B,C)   </span><br><span class="line">  #下半部分：N-1个圆盘，以 A 为临时存放，从 B-&gt;C</span><br><span class="line">  move(N-1,B,A,C)  </span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">  move(3,A,B,C)</span><br></pre></td></tr></table></figure>
+<p>这个过程完全是受另一篇博客启发。对汉诺塔的总结和学习的博客有很多，但是个人觉得这种思路的条理是比较清晰和易于理解的，也非常直观地表达了递归的思想。</p>
+<p>参考资料：<br><br><a href="http://www.jianshu.com/p/b04087dc6fdf" target="_blank" rel="noopener">简书-Python实现汉诺塔算法</a> <br><br><a href="https://zh.wikipedia.org/wiki/%E6%B1%89%E8%AF%BA%E5%A1%94" target="_blank" rel="noopener">维基百科-汉诺塔</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/04/浅谈TCP-UDP协议/" rel="next" title="浅谈TCP&UDP协议">
+                <i class="fa fa-chevron-left"></i> 浅谈TCP&UDP协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/profile.jpg"
+                alt="Donlin" />
+            
+              <p class="site-author-name" itemprop="name">Donlin</p>
+              <p class="site-description motion-element" itemprop="description">笃定 自律 求知</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Donlin23" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:donlinhe@foxmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/23dongdong" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/user/59fd2acc6fb9a04514636713" target="_blank" title="掘金"><i class="fa fa-fw fa-globe"></i>掘金</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Builded by Donlin.</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Hosted by <a target="_blank" rel="external nofollow" href="https://pages.github.com/"><b>Github Pages</b></a></div>
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

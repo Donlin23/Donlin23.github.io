@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Pacifico:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":6,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="UDP协议详解 UDP协议(User Datagram Protocol)用户数据报协议，是传输层上非常重要的一个协议。它提供无连接的、尽力交付的网络传输服务。UDP传入IP层的数据称为报（datagram）  首先，我们来看一下UDP的几个特性。  UDP是无连接的，发送数据之前不需要建立连接(而TCP需要)，减少了开销和时延。 UDP提供尽最大努力交付(Best Effort Delivery">
+<meta name="keywords" content="网络协议">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈TCP&amp;UDP协议">
+<meta property="og:url" content="http://donlin23.github.io/2018/06/04/浅谈TCP-UDP协议/index.html">
+<meta property="og:site_name" content="Donlin&#39; Life">
+<meta property="og:description" content="UDP协议详解 UDP协议(User Datagram Protocol)用户数据报协议，是传输层上非常重要的一个协议。它提供无连接的、尽力交付的网络传输服务。UDP传入IP层的数据称为报（datagram）  首先，我们来看一下UDP的几个特性。  UDP是无连接的，发送数据之前不需要建立连接(而TCP需要)，减少了开销和时延。 UDP提供尽最大努力交付(Best Effort Delivery">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://dn-anything-about-doc.qbox.me/TCP_IP/tcp-5-04.png">
+<meta property="og:image" content="https://dn-anything-about-doc.qbox.me/TCP_IP/tcp-6-02.png/logoblackfont">
+<meta property="og:updated_time" content="2018-06-29T07:22:23.973Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈TCP&amp;UDP协议">
+<meta name="twitter:description" content="UDP协议详解 UDP协议(User Datagram Protocol)用户数据报协议，是传输层上非常重要的一个协议。它提供无连接的、尽力交付的网络传输服务。UDP传入IP层的数据称为报（datagram）  首先，我们来看一下UDP的几个特性。  UDP是无连接的，发送数据之前不需要建立连接(而TCP需要)，减少了开销和时延。 UDP提供尽最大努力交付(Best Effort Delivery">
+<meta name="twitter:image" content="https://dn-anything-about-doc.qbox.me/TCP_IP/tcp-5-04.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://donlin23.github.io/2018/06/04/浅谈TCP-UDP协议/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>浅谈TCP&UDP协议 | Donlin' Life</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Donlin' Life</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">You must be a hero for your life.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://donlin23.github.io/2018/06/04/浅谈TCP-UDP协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Donlin">
+      <meta itemprop="description" content="笃定 自律 求知">
+      <meta itemprop="image" content="/images/profile.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Donlin' Life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅谈TCP&UDP协议
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-04 10:57:16" itemprop="dateCreated datePublished" datetime="2018-06-04T10:57:16+08:00">2018-06-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-06-29 15:22:23" itemprop="dateModified" datetime="2018-06-29T15:22:23+08:00">2018-06-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/信息安全/" itemprop="url" rel="index"><span itemprop="name">信息安全</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="UDP协议详解"><a href="#UDP协议详解" class="headerlink" title="UDP协议详解"></a>UDP协议详解</h3><blockquote>
+<p>UDP协议(User Datagram Protocol)用户数据报协议，是传输层上非常重要的一个协议。它提供无连接的、尽力交付的网络传输服务。UDP传入IP层的数据称为报（datagram）</p>
+</blockquote>
+<p>首先，我们来看一下UDP的几个特性。</p>
+<ol>
+<li>UDP是无连接的，发送数据之前不需要建立连接(而TCP需要)，减少了开销和时延。</li>
+<li>UDP提供尽最大努力交付(Best Effort Delivery)，不保证交付的可靠性(TCP提供可靠性传输)</li>
+<li>UDP是面向报文的，对于从应用层交付下来的应用层数据，只做很简单的封装(8字节的UDP报文头)，首部开销小。</li>
+<li>UDP没有拥塞控制，出现网络拥塞时发送方也不会降低发送速率。</li>
+<li>UDP支持一对一、一对多、多对多的交互通信。(TCP只支持一对一)。</li>
+</ol>
+<p>接下来，我们来看一下UDP的报文格式。UDP数据报分为两部分：UDP报头和数据部分。其中数据部分是应用层交付下来的数据。UDP报头总共8字节，分为4个字段：</p>
+<p><img src="https://dn-anything-about-doc.qbox.me/TCP_IP/tcp-5-04.png" alt="UDP数据报头"></p>
+<ol>
+<li>源端口2字节，在对方需要回信时可用，不需要时可以全0；</li>
+<li>目的端口2字节，必须填写字段，最重要字段；</li>
+<li>长度2字节，长度值包括报头和数据部分；</li>
+<li>校验和2字节，用于校验UDP数据报在传输中是否出错，出错就丢弃。</li>
+</ol>
+<blockquote>
+<p>重点说明：UDP的端口和TCP端口是不一样的。例如某项服务占用了UDP的8888端口，但是TCP的8888端口还是可以用的。</p>
+</blockquote>
+<h3 id="TCP协议详解"><a href="#TCP协议详解" class="headerlink" title="TCP协议详解"></a>TCP协议详解</h3><blockquote>
+<p>TCP协议(Transmission Control Protocol)传输控制协议，是TCP/IP协议族中最复杂的部分。TCP传入IP层的数据称为段（segment）。</p>
+</blockquote>
+<p>首先，我们来看一下TCP协议的特点：</p>
+<ol>
+<li>TCP提供可靠的数据传输服务，TCP是面向连接的。应用程序在使用TCP 通信之前，先建立连接，这是一个类似“打电话”的过程，通信结束后还要“挂电话”；</li>
+<li>TCP连接是点对点的，一条TCP连接只能连接两个端点；</li>
+<li>TCP提供可靠传输，无差错、不丢失、不重复、按顺序；</li>
+<li>TCP提供全双工通信，允许通信双方任何时候都能发送数据，因为TCP连接的两端都设有发送缓存和接收缓存；</li>
+<li>TCP面向字节流，仅把数据看作一连串的字节序列，它也不保证接收方收到的数据块和发送方发出的数据块具有大小对应关系。</li>
+</ol>
+<p>接下来，我们给出TCP报文段的结构。TCP是面向字节流的，而TCP传输数据的单元是报文段。一个TCP报文段可分为两部分：报头和数据部分。数据部分是上层应用交付的数据，而报头则是TCP功能的关键。<br><img src="https://dn-anything-about-doc.qbox.me/TCP_IP/tcp-6-02.png/logoblackfont" alt="TCP报文结构图"></p>
+<ol>
+<li>源端口和目的端口。各占16位，分别写入源端口号和目的端口号。这和UDP报头有类似之处，因为都是传输层协议；</li>
+<li>序号。32位，序号范围[0，2^32-1]，序号增加到 2^32-1后，下个序号又回到0。TCP是面向字节流的，通过TCP传送的字节流中的每个字节都按顺序编号，而报头中的序号字段值则指的是本报文段数据的第一个字节的序号。</li>
+<li>确认序号。32位，期望收到对方下个报文段的第一个数据字节的序号。</li>
+<li>数据偏移。4位，指TCP报文段的报头长度，包括固定的 20 字节和选项字段。</li>
+<li>保留。6位，保留为今后使用，目前为0。</li>
+<li>控制位。6个控制位，说明本报文的性质，意义如下： URG紧急:当URG=1时，它告诉系统此报文中有紧急数据，应优先传送(比如紧急关闭)，这要与紧急指针字段配合使用。ACK确认:仅当ACK=1时确认号字段才有效。建立TCP连接后，所有报文段都必须把ACK字段置为1。PSH推送:若TCP连接的一端希望另一端立即响应，PSH字段便可以“催促”对方，不再等到缓存区填满才发送。RET复位:若TCP连接出现严重差错，RST置为1，断开TCP连接，再重新建立连接。SYN同步:用于建立和释放连接，稍后会详细介绍。FIN终止:用于释放连接，当FIN=1，表明发送方已经发送完毕，要求释放TCP连接。</li>
+<li>窗口。2个字节。窗口值是指发送者自己的接收窗口大小，因为接收缓存的空间有限。</li>
+<li>检验和。2个字节。和UDP报文一样，有一个检验和，用于检查报文是否在传输过程中出差错。</li>
+<li>紧急指针。2字节。当URG=1时才有效，指出本报文段紧急数据的字节数。</li>
+<li>选项。长度可变，最长可达40字节。具体的选项字段，需要时再做介绍。</li>
+</ol>
+<p>最后总结一下，TCP 和 UDP 都是传输层中及其重要的两个协议，基本上大部分网络应用服务都是通过这两种协议进行端口到端口的通信。往下交付的数据包就由IP协议负责了。这种分层的设计思想条理清晰，易于理解，也易于实现。</p>
+<p>参考资料：<br><br><a href="https://www.shiyanlou.com/courses/98/labs/556/document" target="_blank" rel="noopener">实验楼实验-TCP/IP网络协议基础 TCP</a> <br><br><a href="https://www.shiyanlou.com/courses/98/labs/541/document" target="_blank" rel="noopener">实验楼实验-TCP/IP网络协议基础 UDP</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络协议/" rel="tag"># 网络协议</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/04/浅谈IP网络协议/" rel="next" title="浅谈IP网络协议">
+                <i class="fa fa-chevron-left"></i> 浅谈IP网络协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/04/汉诺塔游戏算法/" rel="prev" title="汉诺塔游戏算法">
+                汉诺塔游戏算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/profile.jpg"
+                alt="Donlin" />
+            
+              <p class="site-author-name" itemprop="name">Donlin</p>
+              <p class="site-description motion-element" itemprop="description">笃定 自律 求知</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Donlin23" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:donlinhe@foxmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/23dongdong" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/user/59fd2acc6fb9a04514636713" target="_blank" title="掘金"><i class="fa fa-fw fa-globe"></i>掘金</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP协议详解"><span class="nav-number">1.</span> <span class="nav-text">UDP协议详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP协议详解"><span class="nav-number">2.</span> <span class="nav-text">TCP协议详解</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Builded by Donlin.</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Hosted by <a target="_blank" rel="external nofollow" href="https://pages.github.com/"><b>Github Pages</b></a></div>
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

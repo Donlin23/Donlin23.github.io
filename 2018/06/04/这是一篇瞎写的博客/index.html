@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Pacifico:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":6,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Welcome突然间冒出一个想法搞一个博客，于是动手搞了这么一个不算 low 但也不算不 low 的 Blog 。空余时间写写技术总结，遇到的问题以及一些思考。当然，还是得有这个 little boy 诞生的过程，也相当于是一个学习的过程。 jekyll 是一个用编程语言 ruby 编写的静态网页生成器，只需要编写简单的 _config.yml 配置文件，就可自动生成站点内容。当然，我们还可以通过">
+<meta name="keywords" content="随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="这是一篇瞎写的博客">
+<meta property="og:url" content="http://donlin23.github.io/2018/06/04/这是一篇瞎写的博客/index.html">
+<meta property="og:site_name" content="Donlin&#39; Life">
+<meta property="og:description" content="Welcome突然间冒出一个想法搞一个博客，于是动手搞了这么一个不算 low 但也不算不 low 的 Blog 。空余时间写写技术总结，遇到的问题以及一些思考。当然，还是得有这个 little boy 诞生的过程，也相当于是一个学习的过程。 jekyll 是一个用编程语言 ruby 编写的静态网页生成器，只需要编写简单的 _config.yml 配置文件，就可自动生成站点内容。当然，我们还可以通过">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-29T07:22:23.973Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="这是一篇瞎写的博客">
+<meta name="twitter:description" content="Welcome突然间冒出一个想法搞一个博客，于是动手搞了这么一个不算 low 但也不算不 low 的 Blog 。空余时间写写技术总结，遇到的问题以及一些思考。当然，还是得有这个 little boy 诞生的过程，也相当于是一个学习的过程。 jekyll 是一个用编程语言 ruby 编写的静态网页生成器，只需要编写简单的 _config.yml 配置文件，就可自动生成站点内容。当然，我们还可以通过">
+
+
+
+
+
+
+  <link rel="canonical" href="http://donlin23.github.io/2018/06/04/这是一篇瞎写的博客/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>这是一篇瞎写的博客 | Donlin' Life</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Donlin' Life</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">You must be a hero for your life.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://donlin23.github.io/2018/06/04/这是一篇瞎写的博客/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Donlin">
+      <meta itemprop="description" content="笃定 自律 求知">
+      <meta itemprop="image" content="/images/profile.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Donlin' Life">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">这是一篇瞎写的博客
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-04 10:52:32" itemprop="dateCreated datePublished" datetime="2018-06-04T10:52:32+08:00">2018-06-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-06-29 15:22:23" itemprop="dateModified" datetime="2018-06-29T15:22:23+08:00">2018-06-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日常感想/" itemprop="url" rel="index"><span itemprop="name">日常感想</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h2><p>突然间冒出一个想法搞一个博客，于是动手搞了这么一个不算 low 但也不算不 low 的 Blog 。空余时间写写技术总结，遇到的问题以及一些思考。当然，还是得有这个 little boy 诞生的过程，也相当于是一个学习的过程。</p>
+<p>jekyll 是一个用编程语言 ruby 编写的静态网页生成器，只需要编写简单的 _config.yml 配置文件，就可自动生成站点内容。当然，我们还可以通过 html 和 css 等布局我们的网页样式，这需要一些 html 和 css 前端设计的知识。我比较懒（-_-），直接在 Github 上寻找一些开源模版，稍作修改，就可以制作成自己的个人主页了。当然，还有很多国外前端爱好者编写的jekyll开源模版，看起来还是蛮不错的。</p>
+<p><a href="http://jekyllthemes.org/" target="_blank" rel="noopener">jekyll主题</a></p>
+<p>其实现在的网页静态生成器还是蛮多的，类似的产品还有 Node.js 编写的 Hexo 等等，相比于拥有后台数据库的 WordPress 等高级一点的博客内容管理系统，静态网页生成器更加专注于写作，没有后台数据库，可以直接使用 Markdown 的格式撰写文章，只需要几条命令就可以完成站点的部署和更新，个人感觉还是蛮不错的。更重要的是，Github Pages 托管服务可以支持你的站点直接部署，这样相当于你有了一个可以免费部署以供全球访问个人主页的平台。</p>
+<p>在这里，我选用的 H2O 这款模版，这是一位中国前端工程师设计的 jekyll 模版。非常适合我这种对前端设计没有太多时间和知识，又想搭个主页装13的人使用（手动点赞）。已下就是引用了作者在发布这款 jekyll 的介绍原文。</p>
+<p><a href="https://Github.com/kaeyleo/jekyll-theme-H2O" target="_blank" rel="noopener">传送门 →</a></p>
+<p>自从学习了 web 开发之后一直想搞一个个人主页，定期写写关于技术的学习总结和实践经历。来到华南理工读研以后，学到的东西的确太多了，每一天都非常的充实，每天在实验室呆到11点。虽然有时候感觉挺累的，但是确实每天都非常有挑战性，这一种挑战性让我每一天都有驱动力去做每一件事。好了，长话短说。这将是我的博客第一篇博文，介绍一下我在创造这个博客的时候心路历程。</p>
+<p>当前市面上基于 web 应用托管的服务已经非常丰富了，再加上近些年来云计算服务的兴起，国内的阿里云、腾讯云，国外的亚马逊等云服务提供商也提供了非常便宜的云计算服务。我在搭建博客初期，使用的就是阿里云的虚拟主机服务（共享经济版），一年大概两百多块，之后又在万网租用了 donlin.me 的域名，使用了 WordPress 的站点。WordPress 是使用 PHP 语言写的一款内容管理系统（CMS），在 Nginx 服务器的主目录下直接可以把站点跑起来了，后台的管理系统也比较方便，提供了很多漂亮的模版，但是总是在一些细节上难以令人满意，尤其是我这种捎带强迫症的狮子男，每当一些页面的布局有不太好看的事情总是好难受（π_π）。所以在运营了大概一两个月之后我就把这个虚拟主机停掉了，当然也有性能上的一些原因，毕竟是共享经济版的虚拟主机，在上传文件和浏览页面的时候还是有一点延时。</p>
+<p>这个时候，Github 的 Pages 进入了我的视野。Github Pages 页面托管，完全免费，全球的访问速度还比较理想，在国内也不会被墙掉。而且使用的就是静态页面生成器的这种技术，最重要的是支持 Markdown 格式的编辑格式，可以让我更加专注于码字。配置好本地的电脑环境之后只需短短的几条命令就可以推送到 Github 仓库上，而且 Github 的 Pages 页面托管默认使用的网页静态生成器就是 jekyll ，正是这个原因，我才认识了这样一个 great 的项目。再配合上 Github 桌面版的应用和 Github 自主研发的 Atom 编辑器，可以快速地生成 web 页面以及推送到远程的 Github 仓库上，简直 perfect！</p>
+<p>上线 Github Pages 页面之后，我就没有更新过博文，只是放了一两篇写了很久的学习总结（实在是太懒了…）直到大概六月某一天，突然觉得如果有一台 Linux 服务器让我去练习一下运维管理，这对我学习 Linux 会有很大帮助吧，就又花了点小钱正是买下阿里云的一台云服务器（ECS），正式步入云时代（这个13还是要装一下的…）</p>
+<p>管理 Linux 确实是一个非常好的学习过程，这期间我开始精读鸟哥系列的两本好书《鸟哥的Linux私房菜——基础学习》和《鸟哥的Linux私房菜——服务器架设》，学习基本的 Linux 知识和原理。为了方便我写博客，我直接从 Github 仓库上克隆我的 jekyll 站点，配置好 Nginx 服务器软件，直接上 http 的根目录，并申请了工信部的备案，希望以后我能够自律地更新并管理我的博客吧~</p>
+<p>最后，分享我的 idea ：纯粹为了好玩~ 哈哈~</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/随笔/" rel="tag"># 随笔</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/04/JPBC学习笔记/" rel="prev" title="JPBC学习笔记">
+                JPBC学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/profile.jpg"
+                alt="Donlin" />
+            
+              <p class="site-author-name" itemprop="name">Donlin</p>
+              <p class="site-description motion-element" itemprop="description">笃定 自律 求知</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Donlin23" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:donlinhe@foxmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/23dongdong" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/user/59fd2acc6fb9a04514636713" target="_blank" title="掘金"><i class="fa fa-fw fa-globe"></i>掘金</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Welcome"><span class="nav-number">1.</span> <span class="nav-text">Welcome</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Builded by Donlin.</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <div class="footer-custom">Hosted by <a target="_blank" rel="external nofollow" href="https://pages.github.com/"><b>Github Pages</b></a></div>
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
